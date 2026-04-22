@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 50
+struct Student {
+int id;
+char name[50];
+int isAbsent; 
+};
+struct Student s[MAX];
+int count = 0;
+void addStudent() {
+printf("\nEnter Student ID: ");
+scanf("%d", &s[count].id);
+printf("Enter Student Name: ");
+scanf("%s", s[count].name);
+s[count].isAbsent = 0; // default present
+count++;
+printf("Student added successfully!\n");
+}
+void markAttendance() {
+int id, found = 0;
+printf("\nEnter Student ID to mark attendance: ");
+scanf("%d", &id);
+for (int i = 0; i < count; i++) {
+if (s[i].id == id) {
+printf("Enter 1 for Absent, 0 for Present: ");
+scanf("%d", &s[i].isAbsent);
+found = 1;
+break;
+}
+}
+if (!found) {
+printf("Student not found!\n");
+}
+}
+void showAbsent() {
+printf("\nAbsent Students:\n");
+for (int i = 0; i < count; i++) {
+if (s[i].isAbsent == 1) {
+printf("ID: %d, Name: %s\n", s[i].id, s[i].name);
+}                        
+}
+}
+void displayAll() {
+printf("\nAll Students:\n");
+for (int i = 0; i < count; i++) {
+printf("ID: %d, Name: %s, Status: %s\n",
+s[i].id,
+s[i].name,
+s[i].isAbsent ? "Absent" : "Present");
+}
+}
+int main() {
+int choice;
+while (1) {
+        printf("\n--- Student Absent Management System ---\n");
+        printf("1. Add Student\n");
+        printf("2. Mark Attendance\n");
+        printf("3. Show Absent Students\n");
+        printf("4. Show All Students\n");
+        printf("5. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: addStudent(); break;
+            case 2: markAttendance(); break;
+            case 3: showAbsent(); break;
+            case 4: displayAll(); break;
+            case 5: return 0;
+            default: printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
